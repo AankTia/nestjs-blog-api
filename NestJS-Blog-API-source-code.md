@@ -101,7 +101,7 @@ PORT=3000
 NODE_ENV=development
 ```
 
-// src/main.ts
+## `src/main.ts`
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -141,7 +141,9 @@ async function bootstrap() {
 bootstrap();
 ```
 
-// src/app.module.ts
+## `src/app.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -155,25 +157,28 @@ import { FollowsModule } from './follows/follows.module';
 import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
-imports: [
-ConfigModule.forRoot({
-isGlobal: true,
-}),
-ThrottlerModule.forRoot([{
-ttl: 60000,
-limit: 100,
-}]),
-DatabaseModule,
-AuthModule,
-UsersModule,
-PostsModule,
-CommentsModule,
-LikesModule,
-FollowsModule,
-UploadsModule,
-],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 100,
+      },
+    ]),
+    DatabaseModule,
+    AuthModule,
+    UsersModule,
+    PostsModule,
+    CommentsModule,
+    LikesModule,
+    FollowsModule,
+    UploadsModule,
+  ],
 })
 export class AppModule {}
+```
 
 // src/database/database.module.ts
 import { Module } from '@nestjs/common';
@@ -186,23 +191,23 @@ import { Like } from '../likes/entities/like.entity';
 import { Follow } from '../follows/entities/follow.entity';
 
 @Module({
-imports: [
-TypeOrmModule.forRootAsync({
-imports: [ConfigModule],
-useFactory: (configService: ConfigService) => ({
-type: 'postgres',
-host: configService.get('DATABASE_HOST'),
-port: configService.get('DATABASE_PORT'),
-username: configService.get('DATABASE_USER'),
-password: configService.get('DATABASE_PASSWORD'),
-database: configService.get('DATABASE_NAME'),
-entities: [User, Post, Comment, Like, Follow],
-synchronize: configService.get('NODE_ENV') === 'development',
-logging: configService.get('NODE_ENV') === 'development',
-}),
-inject: [ConfigService],
-}),
-],
+  imports: [
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DATABASE_HOST'),
+        port: configService.get('DATABASE_PORT'),
+        username: configService.get('DATABASE_USER'),
+        password: configService.get('DATABASE_PASSWORD'),
+        database: configService.get('DATABASE_NAME'),
+        entities: [User, Post, Comment, Like, Follow],
+        synchronize: configService.get('NODE_ENV') === 'development',
+        logging: configService.get('NODE_ENV') === 'development',
+      }),
+      inject: [ConfigService],
+    }),
+  ],
 })
 export class DatabaseModule {}
 
