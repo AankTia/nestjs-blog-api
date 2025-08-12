@@ -43,6 +43,9 @@ export class User {
   followerCount: number;
 
   @Column({ default: 0 })
+  followingCount: number;
+
+  @Column({ default: 0 })
   postsCount: number;
 
   @CreateDateColumn()
