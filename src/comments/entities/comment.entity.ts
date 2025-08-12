@@ -26,6 +26,13 @@ export class Comment {
   updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.comments, { eager: true })
+  @JoinColumn({ name: 'authorId' })
+  author: User;
+
+  @Column()
+  authorId: string;
+
+  @ManyToOne(() => User, (user) => user.comments, { eager: true })
   @JoinColumn({ name: 'postId' })
   post: Post;
 
