@@ -214,7 +214,9 @@ import { Follow } from '../follows/entities/follow.entity';
 export class DatabaseModule {}
 ```
 
-// src/users/entities/user.entity.ts
+## src/users/entities/user.entity.ts
+
+```typescript
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Post } from '../../posts/entities/post.entity';
@@ -279,6 +281,7 @@ following: Follow[];
 @OneToMany(() => Follow, follow => follow.following)
 followers: Follow[];
 }
+```
 
 // src/posts/entities/post.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
