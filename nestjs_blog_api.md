@@ -28,17 +28,20 @@ A comprehensive blog API built with NestJS, PostgreSQL, and Redis featuring user
 ## Quick Start
 
 1. Clone the repository
+
 ```bash
 git clone <repository-url>
 cd nestjs-blog-api
 ```
 
 2. Start the application
+
 ```bash
 docker-compose up --build
 ```
 
 3. Access the API
+
 - API: http://localhost:3000
 - Swagger Documentation: http://localhost:3000/api
 - PostgreSQL: localhost:5432
@@ -63,11 +66,13 @@ src/
 ## API Endpoints
 
 ### Authentication
+
 - `POST /auth/register` - Register new user
 - `POST /auth/login` - User login
 - `POST /auth/refresh` - Refresh JWT token
 
 ### Users
+
 - `GET /users/profile` - Get current user profile
 - `PUT /users/profile` - Update profile
 - `POST /users/:id/follow` - Follow user
@@ -76,6 +81,7 @@ src/
 - `GET /users/:id/following` - Get users being followed
 
 ### Posts
+
 - `GET /posts` - Get all posts (paginated)
 - `POST /posts` - Create new post
 - `GET /posts/:id` - Get single post
@@ -85,6 +91,7 @@ src/
 - `DELETE /posts/:id/like` - Unlike post
 
 ### Comments
+
 - `POST /posts/:id/comments` - Add comment to post
 - `GET /posts/:id/comments` - Get post comments
 - `POST /comments/:id/reply` - Reply to comment
@@ -133,32 +140,38 @@ The application uses the following main entities:
 ## Development
 
 ### Prerequisites
+
 - Docker and Docker Compose
 - Node.js 18+ (for local development)
 
 ### Local Development Setup
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Start database services:
+
 ```bash
 docker-compose up postgres redis -d
 ```
 
 3. Run migrations:
+
 ```bash
 npm run migration:run
 ```
 
 4. Seed the database:
+
 ```bash
 npm run seed
 ```
 
 5. Start development server:
+
 ```bash
 npm run start:dev
 ```
@@ -286,6 +299,7 @@ If you encounter any issues or have questions:
 ### Step 1: Project Setup
 
 1. Create new NestJS project:
+
 ```bash
 npm i -g @nestjs/cli
 nest new nestjs-blog-api
@@ -293,6 +307,7 @@ cd nestjs-blog-api
 ```
 
 2. Install required dependencies:
+
 ```bash
 npm install @nestjs/typeorm @nestjs/jwt @nestjs/passport @nestjs/swagger @nestjs/config @nestjs/throttler
 npm install typeorm pg redis ioredis bcrypt passport passport-jwt passport-local
@@ -303,6 +318,7 @@ npm install --save-dev @types/bcrypt @types/passport-jwt @types/passport-local @
 ### Step 2: Database Configuration
 
 Create `src/database/database.module.ts`:
+
 ```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -332,8 +348,18 @@ export class DatabaseModule {}
 ### Step 3: Create Entities
 
 Create user entity `src/users/entities/user.entity.ts`:
+
 ```typescript
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Post } from '../../posts/entities/post.entity';
 import { Comment } from '../../comments/entities/comment.entity';
 import { Like } from '../../likes/entities/like.entity';
@@ -370,20 +396,20 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Post, post => post.author)
+  @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
 
-  @OneToMany(() => Comment, comment => comment.author)
+  @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];
 
-  @OneToMany(() => Like, like => like.user)
+  @OneToMany(() => Like, (like) => like.user)
   likes: Like[];
 
-  @ManyToMany(() => User, user => user.following)
+  @ManyToMany(() => User, (user) => user.following)
   @JoinTable({ name: 'user_follows' })
   followers: User[];
 
-  @ManyToMany(() => User, user => user.followers)
+  @ManyToMany(() => User, (user) => user.followers)
   following: User[];
 }
 ```
@@ -391,6 +417,7 @@ export class User {
 ### Step 4: Authentication Module
 
 Create JWT strategy `src/auth/strategies/jwt.strategy.ts`:
+
 ```typescript
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
@@ -420,8 +447,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 ### Step 5: Posts Module with Image Upload
 
 Create post entity `src/posts/entities/post.entity.ts`:
+
 ```typescript
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Comment } from '../../comments/entities/comment.entity';
 import { Like } from '../../likes/entities/like.entity';
@@ -452,13 +488,13 @@ export class Post {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, user => user.posts)
+  @ManyToOne(() => User, (user) => user.posts)
   author: User;
 
-  @OneToMany(() => Comment, comment => comment.post)
+  @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 
-  @OneToMany(() => Like, like => like.post)
+  @OneToMany(() => Like, (like) => like.post)
   likes: Like[];
 }
 ```
@@ -466,6 +502,7 @@ export class Post {
 ### Step 6: Docker Configuration
 
 Create `docker-compose.yml`:
+
 ```yaml
 version: '3.8'
 
@@ -478,7 +515,7 @@ services:
       POSTGRES_USER: bloguser
       POSTGRES_PASSWORD: blogpassword
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -488,7 +525,7 @@ services:
     image: redis:7-alpine
     container_name: blog_redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
     networks:
       - blog_network
 
@@ -498,7 +535,7 @@ services:
       dockerfile: Dockerfile
     container_name: blog_api
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - postgres
       - redis
@@ -528,6 +565,7 @@ networks:
 ### Step 7: Dockerfile
 
 Create `Dockerfile`:
+
 ```dockerfile
 FROM node:18-alpine
 
@@ -548,6 +586,7 @@ CMD ["npm", "run", "start:prod"]
 ### Step 8: Seed Script
 
 Create `src/database/seeds/seed.ts`:
+
 ```typescript
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../../app.module';
@@ -557,7 +596,7 @@ import { faker } from '@faker-js/faker';
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);
-  
+
   const usersService = app.get(UsersService);
   const postsService = app.get(PostsService);
 
