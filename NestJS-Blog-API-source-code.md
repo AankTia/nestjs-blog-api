@@ -573,7 +573,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 }
 ```
 
-// src/auth/auth.service.ts
+## `src/auth/auth.service.ts`
+
+```typescript
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
@@ -618,6 +620,7 @@ async refreshToken(user: any) {
 return this.login(user);
 }
 }
+```
 
 // src/auth/auth.controller.ts
 import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
