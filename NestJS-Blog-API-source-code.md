@@ -348,49 +348,61 @@ export class Post {
 }
 ```
 
-// src/comments/entities/comment.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+## `src/comments/entities/comment.entity.ts`
+
+```typescript
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Post } from '../../posts/entities/post.entity';
 
 @Entity('comments')
 export class Comment {
-@PrimaryGeneratedColumn('uuid')
-id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@Column('text')
-content: string;
+  @Column('text')
+  content: string;
 
-@CreateDateColumn()
-createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-@UpdateDateColumn()
-updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-@ManyToOne(() => User, user => user.comments, { eager: true })
-@JoinColumn({ name: 'authorId' })
-author: User;
+  @ManyToOne(() => User, (user) => user.comments, { eager: true })
+  @JoinColumn({ name: 'authorId' })
+  author: User;
 
-@Column()
-authorId: string;
+  @Column()
+  authorId: string;
 
-@ManyToOne(() => Post, post => post.comments)
-@JoinColumn({ name: 'postId' })
-post: Post;
+  @ManyToOne(() => Post, (post) => post.comments)
+  @JoinColumn({ name: 'postId' })
+  post: Post;
 
-@Column()
-postId: string;
+  @Column()
+  postId: string;
 
-@ManyToOne(() => Comment, comment => comment.replies, { nullable: true })
-@JoinColumn({ name: 'parentId' })
-parent: Comment;
+  @ManyToOne(() => Comment, (comment) => comment.replies, { nullable: true })
+  @JoinColumn({ name: 'parentId' })
+  parent: Comment;
 
-@Column({ nullable: true })
-parentId: string;
+  @Column({ nullable: true })
+  parentId: string;
 
-@OneToMany(() => Comment, comment => comment.parent)
-replies: Comment[];
+  @OneToMany(() => Comment, (comment) => comment.parent)
+  replies: Comment[];
 }
+```
 
 // src/likes/entities/like.entity.ts
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, Unique } from 'typeorm';
