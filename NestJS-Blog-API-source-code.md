@@ -1736,39 +1736,42 @@ return this.usersService.findByUsername(username);
 }
 }
 
-// src/users/dto/create-user.dto.ts
+## `src/users/dto/create-user.dto.ts`
+
+```typescript
 import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
-@ApiProperty()
-@IsEmail()
-email: string;
+  @ApiProperty()
+  @IsEmail()
+  email: string;
 
-@ApiProperty()
-@IsNotEmpty()
-username: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  username: string;
 
-@ApiProperty()
-@IsNotEmpty()
-password: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  password: string;
 
-@ApiProperty({ required: false })
-@IsOptional()
-firstName?: string;
+  @ApiProperty({ required: false })
+  @IsOptional()
+  firstName?: string;
 
-@ApiProperty({ required: false })
-@IsOptional()
-lastName?: string;
+  @ApiProperty({ required: false })
+  @IsOptional()
+  lastName?: string;
 
-@ApiProperty({ required: false })
-@IsOptional()
-bio?: string;
+  @ApiProperty({ required: false })
+  @IsOptional()
+  bio?: string;
 
-@ApiProperty({ required: false })
-@IsOptional()
-avatar?: string;
+  @ApiProperty({ required: false })
+  @IsOptional()
+  avatar?: string;
 }
+```
 
 // src/users/dto/update-user.dto.ts
 import { PartialType } from '@nestjs/swagger';
