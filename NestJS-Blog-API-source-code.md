@@ -443,33 +443,44 @@ export class Like {
 }
 ```
 
-// src/follows/entities/follow.entity.ts
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, Unique, Column } from 'typeorm';
+## src/follows/entities/follow.entity.ts
+
+```typescript
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  Unique,
+  Column,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 @Entity('follows')
 @Unique(['followerId', 'followingId'])
 export class Follow {
-@PrimaryGeneratedColumn('uuid')
-id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@CreateDateColumn()
-createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-@ManyToOne(() => User, user => user.following)
-@JoinColumn({ name: 'followerId' })
-follower: User;
+  @ManyToOne(() => User, (user) => user.following)
+  @JoinColumn({ name: 'followerId' })
+  follower: User;
 
-@Column()
-followerId: string;
+  @Column()
+  followerId: string;
 
-@ManyToOne(() => User, user => user.followers)
-@JoinColumn({ name: 'followingId' })
-following: User;
+  @ManyToOne(() => User, (user) => user.followers)
+  @JoinColumn({ name: 'followingId' })
+  following: User;
 
-@Column()
-followingId: string;
+  @Column()
+  followingId: string;
 }
+```
 
 // src/auth/auth.module.ts
 import { Module } from '@nestjs/common';
