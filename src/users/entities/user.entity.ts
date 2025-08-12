@@ -50,15 +50,15 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Post, post => post.author)
+  @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
 
-  @OneToMany(() => Comment, comment => comment.author)
+  @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];
 
-  @OneToMany(() => Follow, follow => follow.follower)
+  @OneToMany(() => Follow, (follow) => follow.follower)
   following: Follow[];
 
-  @OneToMany(() => Follow, follow => follow.following)
+  @OneToMany(() => Follow, (follow) => follow.following)
   followers: Follow[];
 }

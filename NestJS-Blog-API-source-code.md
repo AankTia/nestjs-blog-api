@@ -217,7 +217,14 @@ export class DatabaseModule {}
 ## src/users/entities/user.entity.ts
 
 ```typescript
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Post } from '../../posts/entities/post.entity';
 import { Comment } from '../../comments/entities/comment.entity';
@@ -226,108 +233,120 @@ import { Follow } from '../../follows/entities/follow.entity';
 
 @Entity('users')
 export class User {
-@PrimaryGeneratedColumn('uuid')
-id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@Column({ unique: true })
-email: string;
+  @Column({ unique: true })
+  email: string;
 
-@Column({ unique: true })
-username: string;
+  @Column({ unique: true })
+  username: string;
 
-@Column()
-@Exclude()
-password: string;
+  @Column()
+  @Exclude()
+  password: string;
 
-@Column({ nullable: true })
-firstName: string;
+  @Column({ nullable: true })
+  firstName: string;
 
-@Column({ nullable: true })
-lastName: string;
+  @Column({ nullable: true })
+  lastName: string;
 
-@Column({ nullable: true })
-avatar: string;
+  @Column({ nullable: true })
+  avatar: string;
 
-@Column({ nullable: true, length: 500 })
-bio: string;
+  @Column({ nullable: true, length: 500 })
+  bio: string;
 
-@Column({ default: 0 })
-followersCount: number;
+  @Column({ default: 0 })
+  followersCount: number;
 
-@Column({ default: 0 })
-followingCount: number;
+  @Column({ default: 0 })
+  followingCount: number;
 
-@Column({ default: 0 })
-postsCount: number;
+  @Column({ default: 0 })
+  postsCount: number;
 
-@CreateDateColumn()
-createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-@UpdateDateColumn()
-updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-@OneToMany(() => Post, post => post.author)
-posts: Post[];
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[];
 
-@OneToMany(() => Comment, comment => comment.author)
-comments: Comment[];
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[];
 
-@OneToMany(() => Like, like => like.user)
-likes: Like[];
+  @OneToMany(() => Like, (like) => like.user)
+  likes: Like[];
 
-@OneToMany(() => Follow, follow => follow.follower)
-following: Follow[];
+  @OneToMany(() => Follow, (follow) => follow.follower)
+  following: Follow[];
 
-@OneToMany(() => Follow, follow => follow.following)
-followers: Follow[];
+  @OneToMany(() => Follow, (follow) => follow.following)
+  followers: Follow[];
 }
 ```
 
-// src/posts/entities/post.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+## src/posts/entities/post.entity.ts
+
+```typescript
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Comment } from '../../comments/entities/comment.entity';
 import { Like } from '../../likes/entities/like.entity';
 
 @Entity('posts')
 export class Post {
-@PrimaryGeneratedColumn('uuid')
-id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@Column()
-title: string;
+  @Column()
+  title: string;
 
-@Column('text')
-content: string;
+  @Column('text')
+  content: string;
 
-@Column({ nullable: true })
-image: string;
+  @Column({ nullable: true })
+  image: string;
 
-@Column({ default: 0 })
-likesCount: number;
+  @Column({ default: 0 })
+  likesCount: number;
 
-@Column({ default: 0 })
-commentsCount: number;
+  @Column({ default: 0 })
+  commentsCount: number;
 
-@CreateDateColumn()
-createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-@UpdateDateColumn()
-updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-@ManyToOne(() => User, user => user.posts, { eager: true })
-@JoinColumn({ name: 'authorId' })
-author: User;
+  @ManyToOne(() => User, (user) => user.posts, { eager: true })
+  @JoinColumn({ name: 'authorId' })
+  author: User;
 
-@Column()
-authorId: string;
+  @Column()
+  authorId: string;
 
-@OneToMany(() => Comment, comment => comment.post)
-comments: Comment[];
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
 
-@OneToMany(() => Like, like => like.post)
-likes: Like[];
+  @OneToMany(() => Like, (like) => like.post)
+  likes: Like[];
 }
+```
 
 // src/comments/entities/comment.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
