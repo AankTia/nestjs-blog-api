@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Comment } from 'src/comments/entities/comment.entity';
 import { Follow } from 'src/follows/entities/follow.entity';
+import { Like } from 'src/likes/entities/like.entity';
 import { Post } from 'src/posts/entities/post.entity';
 import {
   Column,
@@ -55,6 +56,9 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];
+
+  @OneToMany(() => Like, (like) => like.user)
+  likes: Like;
 
   @OneToMany(() => Follow, (follow) => follow.follower)
   following: Follow[];
