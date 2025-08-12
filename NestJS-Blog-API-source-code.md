@@ -1,6 +1,6 @@
 # NestJS Blog API Source
 
-## package.json
+## `package.json`
 
 ```json
 {
@@ -83,7 +83,9 @@
 }
 ```
 
-// .env
+## `.env`
+
+```
 DATABASE_HOST=postgres
 DATABASE_PORT=5432
 DATABASE_USER=bloguser
@@ -97,6 +99,7 @@ UPLOAD_DEST=./uploads
 MAX_FILE_SIZE=5242880
 PORT=3000
 NODE_ENV=development
+```
 
 // src/main.ts
 import { NestFactory } from '@nestjs/core';
