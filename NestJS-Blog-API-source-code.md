@@ -404,34 +404,44 @@ export class Comment {
 }
 ```
 
-// src/likes/entities/like.entity.ts
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, Unique } from 'typeorm';
+## `src/likes/entities/like.entity.ts`
+
+```typescript
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  Unique,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Post } from '../../posts/entities/post.entity';
 
 @Entity('likes')
 @Unique(['userId', 'postId'])
 export class Like {
-@PrimaryGeneratedColumn('uuid')
-id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@CreateDateColumn()
-createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-@ManyToOne(() => User, user => user.likes)
-@JoinColumn({ name: 'userId' })
-user: User;
+  @ManyToOne(() => User, (user) => user.likes)
+  @JoinColumn({ name: 'userId' })
+  user: User;
 
-@Column()
-userId: string;
+  @Column()
+  userId: string;
 
-@ManyToOne(() => Post, post => post.likes)
-@JoinColumn({ name: 'postId' })
-post: Post;
+  @ManyToOne(() => Post, (post) => post.likes)
+  @JoinColumn({ name: 'postId' })
+  post: Post;
 
-@Column()
-postId: string;
+  @Column()
+  postId: string;
 }
+```
 
 // src/follows/entities/follow.entity.ts
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, Unique, Column } from 'typeorm';
