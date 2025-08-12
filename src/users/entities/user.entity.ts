@@ -40,7 +40,7 @@ export class User {
   bio: string;
 
   @Column({ default: 0 })
-  followerCount: number;
+  followersCount: number;
 
   @Column({ default: 0 })
   followingCount: number;
