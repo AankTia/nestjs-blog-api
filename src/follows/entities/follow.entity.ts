@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity('follows')
-@Unique(['followerId', 'FollowingId'])
+@Unique(['followerId', 'followingId'])
 export class Follow {
   @PrimaryGeneratedColumn('uuid')
   id: string;
