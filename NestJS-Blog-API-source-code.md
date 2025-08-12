@@ -482,7 +482,9 @@ export class Follow {
 }
 ```
 
-// src/auth/auth.module.ts
+## `src/auth/auth.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -494,23 +496,24 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-imports: [
-UsersModule,
-PassportModule,
-JwtModule.registerAsync({
-imports: [ConfigModule],
-useFactory: (configService: ConfigService) => ({
-secret: configService.get<string>('JWT_SECRET'),
-signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') },
-}),
-inject: [ConfigService],
-}),
-],
-controllers: [AuthController],
-providers: [AuthService, LocalStrategy, JwtStrategy],
-exports: [AuthService],
+  imports: [
+    UsersModule,
+    PassportModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') },
+      }),
+      inject: [ConfigService],
+    }),
+  ],
+  controllers: [AuthController],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}
+```
 
 // src/auth/strategies/local.strategy.ts
 import { Injectable, UnauthorizedException } from '@nestjs/common';
