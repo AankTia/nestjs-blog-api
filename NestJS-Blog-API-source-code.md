@@ -1773,24 +1773,27 @@ export class CreateUserDto {
 }
 ```
 
-// src/users/dto/update-user.dto.ts
+## `src/users/dto/update-user.dto.ts`
+
+```typescript
 import { PartialType } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 import { IsOptional } from 'class-validator';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-@IsOptional()
-firstName?: string;
+  @IsOptional()
+  firstName?: string;
 
-@IsOptional()
-lastName?: string;
+  @IsOptional()
+  lastName?: string;
 
-@IsOptional()
-bio?: string;
+  @IsOptional()
+  bio?: string;
 
-@IsOptional()
-avatar?: string;
+  @IsOptional()
+  avatar?: string;
 }
+```
 
 // src/posts/posts.module.ts
 import { Module } from '@nestjs/common';
