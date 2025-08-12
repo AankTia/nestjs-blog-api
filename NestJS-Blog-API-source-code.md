@@ -180,7 +180,9 @@ import { UploadsModule } from './uploads/uploads.module';
 export class AppModule {}
 ```
 
-// src/database/database.module.ts
+## `src/database/database.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -210,6 +212,7 @@ import { Follow } from '../follows/entities/follow.entity';
   ],
 })
 export class DatabaseModule {}
+```
 
 // src/users/entities/user.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
