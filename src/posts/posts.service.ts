@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -61,7 +65,7 @@ export class PostsService {
   ): Promise<{ posts: Post[]; total: number }> {
     const [posts, total] = await this.postRepository.findAndCount({
       where: { authorId },
-      skip: (page - 1) \* limit,
+      skip: (page - 1) * limit,
       take: limit,
       order: { createdAt: 'DESC' },
       relations: ['author'],
