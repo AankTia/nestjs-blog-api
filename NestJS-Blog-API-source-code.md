@@ -937,7 +937,9 @@ import { UsersModule } from '../users/users.module';
 export class FollowsModule {}
 ```
 
-// src/follows/follows.service.ts
+## `src/follows/follows.service.ts`
+
+```typescript
 import { Injectable, ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -1039,6 +1041,7 @@ where: { followerId, followingId },
 
 }
 }
+```
 
 // src/follows/follows.controller.ts
 import { Controller, Post, Delete, Get, Param, UseGuards, Request, Query } from '@nestjs/common';
