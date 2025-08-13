@@ -214,7 +214,7 @@ import { Follow } from '../follows/entities/follow.entity';
 export class DatabaseModule {}
 ```
 
-## src/users/entities/user.entity.ts
+## `src/users/entities/user.entity.ts`
 
 ```typescript
 import {
@@ -290,7 +290,7 @@ export class User {
 }
 ```
 
-## src/posts/entities/post.entity.ts
+## `src/posts/entities/post.entity.ts`
 
 ```typescript
 import {
@@ -443,7 +443,7 @@ export class Like {
 }
 ```
 
-## src/follows/entities/follow.entity.ts
+## `src/follows/entities/follow.entity.ts`
 
 ```typescript
 import {
@@ -541,7 +541,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 }
 ```
 
-## src/auth/strategies/jwt.strategy.ts
+## `src/auth/strategies/jwt.strategy.ts`
 
 ```typescript
 import { Injectable, UnauthorizedException } from '@nestjs/common';
