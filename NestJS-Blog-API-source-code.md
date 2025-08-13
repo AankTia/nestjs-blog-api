@@ -2145,13 +2145,18 @@ export class CreatePostDto {
 }
 ```
 
-// src/posts/dto/update-post.dto.ts
+## `src/posts/dto/update-post.dto.ts`
+
+```typescript
 import { PartialType } from '@nestjs/swagger';
 import { CreatePostDto } from './create-post.dto';
 
 export class UpdatePostDto extends PartialType(CreatePostDto) {}
+```
 
-// src/comments/comments.module.ts
+## src/comments/comments.module.ts
+
+```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommentsService } from './comments.service';
@@ -2160,15 +2165,13 @@ import { Comment } from './entities/comment.entity';
 import { PostsModule } from '../posts/posts.module';
 
 @Module({
-imports: [
-TypeOrmModule.forFeature([Comment]),
-PostsModule,
-],
-controllers: [CommentsController],
-providers: [CommentsService],
-exports: [CommentsService],
+  imports: [TypeOrmModule.forFeature([Comment]), PostsModule],
+  controllers: [CommentsController],
+  providers: [CommentsService],
+  exports: [CommentsService],
 })
 export class CommentsModule {}
+```
 
 // src/comments/comments.service.ts
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
