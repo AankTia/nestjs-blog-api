@@ -772,7 +772,9 @@ import { PostsModule } from '../posts/posts.module';
 export class LikesModule {}
 ```
 
-// src/likes/likes.service.ts
+## `src/likes/likes.service.ts`
+
+```typescript
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -849,6 +851,7 @@ where: { postId, userId },
 
 }
 }
+```
 
 // src/likes/likes.controller.ts
 import { Controller, Post, Delete, Param, UseGuards, Request, Get, Query } from '@nestjs/common';
