@@ -1875,7 +1875,9 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 }
 ```
 
-// src/posts/posts.module.ts
+## `src/posts/posts.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostsService } from './posts.service';
@@ -1884,15 +1886,13 @@ import { Post } from './entities/post.entity';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-imports: [
-TypeOrmModule.forFeature([Post]),
-UsersModule,
-],
-controllers: [PostsController],
-providers: [PostsService],
-exports: [PostsService],
+  imports: [TypeOrmModule.forFeature([Post]), UsersModule],
+  controllers: [PostsController],
+  providers: [PostsService],
+  exports: [PostsService],
 })
 export class PostsModule {}
+```
 
 // src/posts/posts.service.ts
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
