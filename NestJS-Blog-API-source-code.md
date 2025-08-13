@@ -1183,7 +1183,9 @@ return `/uploads/${filename}`;
 }
 ```
 
-// src/uploads/uploads.controller.ts
+## `src/uploads/uploads.controller.ts`
+
+```typescript
 import { Controller, Post, UseInterceptors, UploadedFile, Get, Param, Res, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
@@ -1239,6 +1241,7 @@ const filePath = join(process.cwd(), 'uploads', filename);
 return res.sendFile(filePath);
 }
 }
+```
 
 // src/database/seeds/seed.ts
 import { NestFactory } from '@nestjs/core';
