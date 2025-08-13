@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import path from 'path';
+import fs from 'fs/promises';
 
 @Injectable()
 export class UploadsService {
