@@ -753,7 +753,9 @@ import { CreateCommentDto } from './create-comment.dto';
 export class UpdateCommentDto extends PartialType(CreateCommentDto) {}
 ```
 
-// src/likes/likes.module.ts
+## `src/likes/likes.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LikesService } from './likes.service';
@@ -762,15 +764,13 @@ import { Like } from './entities/like.entity';
 import { PostsModule } from '../posts/posts.module';
 
 @Module({
-imports: [
-TypeOrmModule.forFeature([Like]),
-PostsModule,
-],
-controllers: [LikesController],
-providers: [LikesService],
-exports: [LikesService],
+  imports: [TypeOrmModule.forFeature([Like]), PostsModule],
+  controllers: [LikesController],
+  providers: [LikesService],
+  exports: [LikesService],
 })
 export class LikesModule {}
+```
 
 // src/likes/likes.service.ts
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
