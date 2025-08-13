@@ -1894,7 +1894,9 @@ import { UsersModule } from '../users/users.module';
 export class PostsModule {}
 ```
 
-// src/posts/posts.service.ts
+## `src/posts/posts.service.ts`
+
+```typescript
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -1998,6 +2000,7 @@ await this.postsRepository
 .execute();
 }
 }
+```
 
 // src/posts/posts.controller.ts
 import {
