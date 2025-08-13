@@ -7,6 +7,7 @@ import {
   Get,
   Param,
   Res,
+  Response,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -65,8 +66,11 @@ export class UploadsController {
   @Get(':filename')
   @ApiOperation({ summary: 'Serve uploaded file' })
   @ApiResponse({ status: 200, description: 'File served' })
-  serveFile(@Param('filename') filename: string, @Res() res: Response) {
+  serveFile(
+    @Param('filename') filename: string,
+    @Res() res: import('express').Response,
+  ) {
     const filePath = join(process.cwd(), 'uploads', filename);
-    return res.sendFile(filePath);
+    res.sendFile(filePath);
   }
 }
