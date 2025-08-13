@@ -1549,36 +1549,42 @@ export class LoginDto {
 }
 ```
 
-// src/auth/dto/register.dto.ts
+## `src/auth/dto/register.dto.ts`
+
+```typescript
 import { IsEmail, IsNotEmpty, MinLength, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegisterDto {
-@ApiProperty({ example: 'user@example.com' })
-@IsEmail()
-email: string;
+  @ApiProperty({ example: 'user@example.com' })
+  @IsEmail()
+  email: string;
 
-@ApiProperty({ example: 'username123' })
-@IsNotEmpty()
-username: string;
+  @ApiProperty({ example: 'username123' })
+  @IsNotEmpty()
+  username: string;
 
-@ApiProperty({ example: 'password123', minLength: 6 })
-@IsNotEmpty()
-@MinLength(6)
-password: string;
+  @ApiProperty({ example: 'password123', minLength: 6 })
+  @IsNotEmpty()
+  @MinLength(6)
+  password: string;
 
-@ApiProperty({ example: 'John', required: false })
-@IsOptional()
-firstName?: string;
+  @ApiProperty({ example: 'John', required: false })
+  @IsOptional()
+  firstName?: string;
 
-@ApiProperty({ example: 'Doe', required: false })
-@IsOptional()
-lastName?: string;
+  @ApiProperty({ example: 'Doe', required: false })
+  @IsOptional()
+  lastName?: string;
 
-@ApiProperty({ example: 'Software developer from Indonesia', required: false })
-@IsOptional()
-bio?: string;
+  @ApiProperty({
+    example: 'Software developer from Indonesia',
+    required: false,
+  })
+  @IsOptional()
+  bio?: string;
 }
+```
 
 ## `src/auth/guards/jwt-auth.guard.ts`
 
