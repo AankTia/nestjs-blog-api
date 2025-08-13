@@ -1597,7 +1597,9 @@ import { AuthGuard } from '@nestjs/passport';
 export class LocalAuthGuard extends AuthGuard('local') {}
 ```
 
-// src/users/users.module.ts
+## `src/users/users.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './users.service';
@@ -1605,12 +1607,13 @@ import { UsersController } from './users.controller';
 import { User } from './entities/user.entity';
 
 @Module({
-imports: [TypeOrmModule.forFeature([User])],
-controllers: [UsersController],
-providers: [UsersService],
-exports: [UsersService],
+  imports: [TypeOrmModule.forFeature([User])],
+  controllers: [UsersController],
+  providers: [UsersService],
+  exports: [UsersService],
 })
 export class UsersModule {}
+```
 
 ## `src/users/users.service.ts`
 
