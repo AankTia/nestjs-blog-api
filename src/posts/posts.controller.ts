@@ -26,11 +26,13 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Request as ExpressRequest } from 'express';
+import { User } from '../users/entities/user.entity';
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostsService) { }
+  constructor(private readonly postsService: PostsService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -62,11 +64,11 @@ export class PostsController {
   create(
     @Body() createPostDto: CreatePostDto,
     @UploadedFile() file: Express.Multer.File,
-    @Request() req,
+    @Request() req: ExpressRequest & { user: User },
   ) {
     const postData = {
       ...createPostDto,
-      image: file ? file.filename : null,
+      image: file ? file.filename : undefined,
     };
     return this.postsService.create(postData, req.user);
   }
@@ -97,9 +99,9 @@ export class PostsController {
   update(
     @Param('id') id: string,
     @Body() updatePostDto: UpdatePostDto,
-    @Request() req,
+    @Request() req: ExpressRequest & { user: User },
   ) {
-    return this.postsService.update(id, updatePostDto, req.user)
+    return this.postsService.update(id, updatePostDto, req.user);
   }
 
   @Delete(':id')
@@ -107,7 +109,10 @@ export class PostsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete a post' })
   @ApiResponse({ status: 200, description: 'Post deleted successfully' })
-  remove(@Param('id') id: string, @Request() req) {
+  remove(
+    @Param('id') id: string,
+    @Request() req: ExpressRequest & { user: User },
+  ) {
     return this.postsService.remove(id, req.user);
   }
 
