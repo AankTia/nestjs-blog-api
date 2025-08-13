@@ -1119,17 +1119,20 @@ export class FollowsController {
 }
 ```
 
-// src/uploads/uploads.module.ts
+## `src/uploads/uploads.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { UploadsController } from './uploads.controller';
 import { UploadsService } from './uploads.service';
 
 @Module({
-controllers: [UploadsController],
-providers: [UploadsService],
-exports: [UploadsService],
+  controllers: [UploadsController],
+  providers: [UploadsService],
+  exports: [UploadsService],
 })
 export class UploadsModule {}
+```
 
 // src/uploads/uploads.service.ts
 import { Injectable } from '@nestjs/common';
