@@ -2173,7 +2173,9 @@ import { PostsModule } from '../posts/posts.module';
 export class CommentsModule {}
 ```
 
-// src/comments/comments.service.ts
+## `src/comments/comments.service.ts`
+
+```typescript
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -2298,6 +2300,7 @@ await this.findOne(commentId);
 
 }
 }
+```
 
 // src/comments/comments.controller.ts
 import {
