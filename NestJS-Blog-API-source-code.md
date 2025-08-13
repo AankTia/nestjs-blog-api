@@ -918,7 +918,9 @@ export class LikesController {
 }
 ```
 
-// src/follows/follows.module.ts
+## `src/follows/follows.module.ts`
+
+```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FollowsService } from './follows.service';
@@ -927,15 +929,13 @@ import { Follow } from './entities/follow.entity';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-imports: [
-TypeOrmModule.forFeature([Follow]),
-UsersModule,
-],
-controllers: [FollowsController],
-providers: [FollowsService],
-exports: [FollowsService],
+  imports: [TypeOrmModule.forFeature([Follow]), UsersModule],
+  controllers: [FollowsController],
+  providers: [FollowsService],
+  exports: [FollowsService],
 })
 export class FollowsModule {}
+```
 
 // src/follows/follows.service.ts
 import { Injectable, ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
