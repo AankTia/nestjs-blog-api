@@ -731,15 +731,18 @@ return this.commentsService.getReplies(commentId, +page, +limit);
 }
 }
 
-// src/comments/dto/create-comment.dto.ts
+## `src/comments/dto/create-comment.dto.ts`
+
+```typescript
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCommentDto {
-@ApiProperty({ example: 'Great post! Thanks for sharing.' })
-@IsNotEmpty()
-content: string;
+  @ApiProperty({ example: 'Great post! Thanks for sharing.' })
+  @IsNotEmpty()
+  content: string;
 }
+```
 
 // src/comments/dto/update-comment.dto.ts
 import { PartialType } from '@nestjs/swagger';
