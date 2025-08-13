@@ -2124,23 +2124,26 @@ return this.postsService.findByAuthor(username, +page, +limit);
 }
 ```
 
-// src/posts/dto/create-post.dto.ts
+## `src/posts/dto/create-post.dto.ts`
+
+```typescript
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePostDto {
-@ApiProperty({ example: 'My First Blog Post' })
-@IsNotEmpty()
-title: string;
+  @ApiProperty({ example: 'My First Blog Post' })
+  @IsNotEmpty()
+  title: string;
 
-@ApiProperty({ example: 'This is the content of my first blog post...' })
-@IsNotEmpty()
-content: string;
+  @ApiProperty({ example: 'This is the content of my first blog post...' })
+  @IsNotEmpty()
+  content: string;
 
-@ApiProperty({ type: 'string', format: 'binary', required: false })
-@IsOptional()
-image?: string;
+  @ApiProperty({ type: 'string', format: 'binary', required: false })
+  @IsOptional()
+  image?: string;
 }
+```
 
 // src/posts/dto/update-post.dto.ts
 import { PartialType } from '@nestjs/swagger';
