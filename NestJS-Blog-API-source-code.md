@@ -744,11 +744,14 @@ export class CreateCommentDto {
 }
 ```
 
-// src/comments/dto/update-comment.dto.ts
+## `src/comments/dto/update-comment.dto.ts`
+
+```typescript
 import { PartialType } from '@nestjs/swagger';
 import { CreateCommentDto } from './create-comment.dto';
 
 export class UpdateCommentDto extends PartialType(CreateCommentDto) {}
+```
 
 // src/likes/likes.module.ts
 import { Module } from '@nestjs/common';
