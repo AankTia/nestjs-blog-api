@@ -1134,7 +1134,9 @@ import { UploadsService } from './uploads.service';
 export class UploadsModule {}
 ```
 
-// src/uploads/uploads.service.ts
+## `src/uploads/uploads.service.ts`
+
+```typescript
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import _ as fs from 'fs/promises';
@@ -1179,6 +1181,7 @@ getFileUrl(filename: string): string {
 return `/uploads/${filename}`;
 }
 }
+```
 
 // src/uploads/uploads.controller.ts
 import { Controller, Post, UseInterceptors, UploadedFile, Get, Param, Res, UseGuards } from '@nestjs/common';
