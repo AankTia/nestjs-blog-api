@@ -1532,19 +1532,22 @@ return this.authService.refreshToken(req.user);
 }
 }
 
-// src/auth/dto/login.dto.ts
+## `src/auth/dto/login.dto.ts`
+
+```typescript
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LoginDto {
-@ApiProperty({ example: 'user@example.com' })
-@IsEmail()
-email: string;
+  @ApiProperty({ example: 'user@example.com' })
+  @IsEmail()
+  email: string;
 
-@ApiProperty({ example: 'password123' })
-@IsNotEmpty()
-password: string;
+  @ApiProperty({ example: 'password123' })
+  @IsNotEmpty()
+  password: string;
 }
+```
 
 // src/auth/dto/register.dto.ts
 import { IsEmail, IsNotEmpty, MinLength, IsOptional } from 'class-validator';
