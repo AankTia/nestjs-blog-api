@@ -1606,8 +1606,14 @@ exports: [UsersService],
 })
 export class UsersModule {}
 
-// src/users/users.service.ts
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+## `src/users/users.service.ts`
+
+```typescript
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -1616,18 +1622,18 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-constructor(
-@InjectRepository(User)
-private usersRepository: Repository<User>,
-) {}
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
-async create(createUserDto: CreateUserDto): Promise<User> {
-const existingUser = await this.usersRepository.findOne({
-where: [
-{ email: createUserDto.email },
-{ username: createUserDto.username }
-]
-});
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const existingUser = await this.usersRepository.findOne({
+      where: [
+        { email: createUserDto.email },
+        { username: createUserDto.username },
+      ],
+    });
 
     if (existingUser) {
       throw new ConflictException('Email or username already exists');
@@ -1635,69 +1641,107 @@ where: [
 
     const user = this.usersRepository.create(createUserDto);
     return await this.usersRepository.save(user);
+  }
 
-}
+  async findAll(): Promise<User[]> {
+    return await this.usersRepository.find({
+      select: [
+        'id',
+        'email',
+        'username',
+        'firstName',
+        'lastName',
+        'avatar',
+        'bio',
+        'followersCount',
+        'followingCount',
+        'postsCount',
+        'createdAt',
+      ],
+    });
+  }
 
-async findAll(): Promise<User[]> {
-return await this.usersRepository.find({
-select: ['id', 'email', 'username', 'firstName', 'lastName', 'avatar', 'bio', 'followersCount', 'followingCount', 'postsCount', 'createdAt']
-});
-}
-
-async findOne(id: string): Promise<User> {
-const user = await this.usersRepository.findOne({
-where: { id },
-select: ['id', 'email', 'username', 'firstName', 'lastName', 'avatar', 'bio', 'followersCount', 'followingCount', 'postsCount', 'createdAt']
-});
+  async findOne(id: string): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      select: [
+        'id',
+        'email',
+        'username',
+        'firstName',
+        'lastName',
+        'avatar',
+        'bio',
+        'followersCount',
+        'followingCount',
+        'postsCount',
+        'createdAt',
+      ],
+    });
 
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
     return user;
+  }
 
-}
+  async findByEmail(email: string): Promise<User> {
+    return await this.usersRepository.findOne({ where: { email } });
+  }
 
-async findByEmail(email: string): Promise<User> {
-return await this.usersRepository.findOne({ where: { email } });
-}
-
-async findByUsername(username: string): Promise<User> {
-const user = await this.usersRepository.findOne({
-where: { username },
-select: ['id', 'email', 'username', 'firstName', 'lastName', 'avatar', 'bio', 'followersCount', 'followingCount', 'postsCount', 'createdAt']
-});
+  async findByUsername(username: string): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { username },
+      select: [
+        'id',
+        'email',
+        'username',
+        'firstName',
+        'lastName',
+        'avatar',
+        'bio',
+        'followersCount',
+        'followingCount',
+        'postsCount',
+        'createdAt',
+      ],
+    });
 
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
     return user;
+  }
 
-}
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    await this.usersRepository.update(id, updateUserDto);
+    return this.findOne(id);
+  }
 
-async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-await this.usersRepository.update(id, updateUserDto);
-return this.findOne(id);
-}
+  async updateCounts(
+    userId: string,
+    field: 'followersCount' | 'followingCount' | 'postsCount',
+    increment: boolean,
+  ) {
+    const operator = increment ? '+' : '-';
+    await this.usersRepository
+      .createQueryBuilder()
+      .update(User)
+      .set({ [field]: () => `${field} ${operator} 1` })
+      .where('id = :userId', { userId })
+      .execute();
+  }
 
-async updateCounts(userId: string, field: 'followersCount' | 'followingCount' | 'postsCount', increment: boolean) {
-const operator = increment ? '+' : '-';
-await this.usersRepository
-.createQueryBuilder()
-.update(User)
-.set({ [field]: () => `${field} ${operator} 1` })
-.where('id = :userId', { userId })
-.execute();
+  async remove(id: string): Promise<void> {
+    const result = await this.usersRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException('User not found');
+    }
+  }
 }
-
-async remove(id: string): Promise<void> {
-const result = await this.usersRepository.delete(id);
-if (result.affected === 0) {
-throw new NotFoundException('User not found');
-}
-}
-}
+```
 
 // src/users/users.controller.ts
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
