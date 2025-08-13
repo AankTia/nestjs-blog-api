@@ -2002,7 +2002,9 @@ await this.postsRepository
 }
 ```
 
-// src/posts/posts.controller.ts
+## `src/posts/posts.controller.ts`
+
+```typescript
 import {
 Controller,
 Get,
@@ -2120,6 +2122,7 @@ findByUser(
 return this.postsService.findByAuthor(username, +page, +limit);
 }
 }
+```
 
 // src/posts/dto/create-post.dto.ts
 import { IsNotEmpty, IsOptional } from 'class-validator';
