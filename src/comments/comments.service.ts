@@ -17,7 +17,7 @@ export class CommentsService {
     @InjectRepository(Comment)
     private commentsRepository: Repository<Comment>,
     private postsService: PostsService,
-  ) {}
+  ) { }
 
   async create(
     postId: string,
@@ -60,7 +60,11 @@ export class CommentsService {
     });
 
     const savedComment = await this.commentsRepository.save(comment);
-    await this.postsService.updateCounts(parentComment.postId, 'commentsCount', true);
+    await this.postsService.updateCounts(
+      parentComment.postId,
+      'commentsCount',
+      true,
+    );
 
     return savedComment;
   }
@@ -71,7 +75,7 @@ export class CommentsService {
     limit: number = 10,
   ): Promise<{ comments: Comment[]; total: number }> {
     const [comments, total] = await this.commentsRepository.findAndCount({
-      where: { postId, parentId: null }, // Only top-level comments
+      where: { postId }, // Only top-level comments
       skip: (page - 1) * limit,
       take: limit,
       order: { createdAt: 'DESC' },
@@ -94,7 +98,11 @@ export class CommentsService {
     return comment;
   }
 
-  async update(id: string, updateCommentDto: UpdateCommentDto, user: User): Promise<Comment> {
+  async update(
+    id: string,
+    updateCommentDto: UpdateCommentDto,
+    user: User,
+  ): Promise<Comment> {
     const comment = await this.findOne(id);
 
     if (comment.authorId !== user.id) {
