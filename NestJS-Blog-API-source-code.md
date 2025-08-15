@@ -2209,7 +2209,7 @@ import { CreatePostDto } from './create-post.dto';
 export class UpdatePostDto extends PartialType(CreatePostDto) {}
 ```
 
-## src/comments/comments.module.ts
+## `src/comments/comments.module.ts`
 
 ```typescript
 import { Module } from '@nestjs/common';
