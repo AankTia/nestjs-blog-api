@@ -85,6 +85,22 @@ export class CommentsService {
     return { comments, total };
   }
 
+  async findByUser(
+    authorId: string,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{ comments: Comment[]; total: number }> {
+    const [comments, total] = await this.commentsRepository.findAndCount({
+      where: { authorId }, // Only top-level comments
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { createdAt: 'DESC' },
+      relations: ['author', 'replies', 'replies.author'],
+    });
+
+    return { comments, total };
+  }
+
   async findOne(id: string): Promise<Comment> {
     const comment = await this.commentsRepository.findOne({
       where: { id },
