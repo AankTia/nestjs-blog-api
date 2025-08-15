@@ -37,4 +37,8 @@ export class AuthService {
     const { password, ...result } = user;
     return this.login(result);
   }
+
+  async refreshToken(user: any) {
+    return this.login(user);
+  }
 }
