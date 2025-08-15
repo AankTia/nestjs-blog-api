@@ -626,7 +626,12 @@ return this.login(user);
 
 ```typescript
 import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -1246,7 +1251,9 @@ return res.sendFile(filePath);
 }
 ```
 
-// src/database/seeds/seed.ts
+## `src/database/seeds/seed.ts`
+
+```typescript
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../../app.module';
 import { UsersService } from '../../users/users.service';
@@ -1381,6 +1388,7 @@ bootstrap().catch((error) => {
 console.error('Seeding failed:', error);
 process.exit(1);
 });
+```
 
 // docker-compose.yml
 version: '3.8'
