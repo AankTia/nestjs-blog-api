@@ -36,6 +36,9 @@ export class Comment {
   @JoinColumn({ name: 'postId' })
   post: Post;
 
+  @Column()
+  postId: string;
+
   @ManyToOne(() => Comment, (comment) => comment.parent)
   @JoinColumn({ name: 'parentId' })
   parent: Comment;
